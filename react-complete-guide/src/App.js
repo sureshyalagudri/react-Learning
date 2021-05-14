@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div>
-      <h1>Let get started</h1>
+      <h1>Expense Report:</h1>
       <Expenses expenses={expenses}></Expenses>
     </div>
   );

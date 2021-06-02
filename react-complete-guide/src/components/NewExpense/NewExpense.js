@@ -3,13 +3,7 @@ import ExpenseForm from './ExpenseForm';
 import React, { useState } from 'react';
 
 const NewExpense = (props) => {
-    const addListener = () => {
-        setExpenseForm(<ExpenseForm onSaveExpenseData={savedExpenseData} onCancelExpense={cancelExpense}></ExpenseForm>);
-        setNewExpenseButton();
-    }
-
-    const [expenseForm, setExpenseForm] = useState();
-    const [newExpenseButton, setNewExpenseButton] = useState(<button onClick={addListener}>Add New Expense</button>);
+    const [addExpense, setEnableForm] = useState(false);
 
     const savedExpenseData = (expenseData) => {
         const data = {
@@ -17,22 +11,20 @@ const NewExpense = (props) => {
             id: Math.random().toString()
         }
         props.onAddExpense(data);
-        setExpenseForm();
     }
 
     const cancelExpense = () => {
-        setExpenseForm();
-        addNewButton();
+        setEnableForm(false);
     }
 
-    const addNewButton = () => {
-        setNewExpenseButton(<button onClick={addListener}>Add New Expense</button>);
+    const addExpenseListener = () => {
+        setEnableForm(true);
     }
 
     return (
         <div className="new-expense">
-            {newExpenseButton}
-            {expenseForm}
+            {addExpense == false && <button onClick={addExpenseListener}>Add New Expense</button>}
+            {addExpense == true && <ExpenseForm onSaveExpenseData={savedExpenseData} onCancelExpense={cancelExpense}></ExpenseForm>}
         </div>
     );
 }
